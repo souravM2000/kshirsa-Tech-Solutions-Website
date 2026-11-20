@@ -11,13 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Injects environment variables for the production Vite build:
-      # Option B (Recommended): Cloudflare Worker proxy URL (public URL)
-      # Option A (Fallback): Direct Resend API key (secret)
+      # Maps either CONTACT_PROXY_URL or VITE_CONTACT_PROXY_URL to Vite's build environment
       - name: Build frontend
         run: npm ci && npm run build
         env:
-          CONTACT_PROXY_URL: ${{ vars.CONTACT_PROXY_URL || secrets.CONTACT_PROXY_URL }}
+          VITE_CONTACT_PROXY_URL: ${{ vars.VITE_CONTACT_PROXY_URL || vars.CONTACT_PROXY_URL || secrets.VITE_CONTACT_PROXY_URL || secrets.CONTACT_PROXY_URL }}
           VITE_RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
 
       - name: Deploy to Firebase Hosting

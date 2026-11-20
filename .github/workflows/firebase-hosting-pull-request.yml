@@ -17,8 +17,8 @@ jobs:
       - name: Build frontend
         run: npm ci && npm run build
         env:
-          CONTACT_PROXY_URL: ${{ vars.CONTACT_PROXY_URL || secrets.CONTACT_PROXY_URL }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          VITE_CONTACT_PROXY_URL: ${{ vars.VITE_CONTACT_PROXY_URL || vars.CONTACT_PROXY_URL || secrets.VITE_CONTACT_PROXY_URL || secrets.CONTACT_PROXY_URL }}
+          VITE_RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
 
       - name: Deploy preview to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
