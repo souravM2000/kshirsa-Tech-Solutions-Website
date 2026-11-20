@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Mail, MapPin, Send, CheckCircle2, AlertCircle, Loader2, Sparkles, ExternalLink } from 'lucide-react';
 import { ContactFormData } from '../types';
 import { Button } from './Button';
-import { sendEmailWithResend, buildMailtoUrl } from '../services/emailService';
+import { sendContactEmail, buildMailtoUrl } from '../services/emailService';
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -78,7 +78,7 @@ export const Contact: React.FC = () => {
 
     try {
       // Dispatch via Resend integration service
-      const result = await sendEmailWithResend(formData);
+      const result = await sendContactEmail(formData);
 
       if (result.success) {
         setStatus('success');
