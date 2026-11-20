@@ -11,12 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # RESEND_API_KEY is stored as a GitHub Secret (never committed to git).
-      # Vite compiles VITE_* env vars into the bundle at build time.
-      # Add it in: GitHub → Repo → Settings → Secrets and variables → Actions → New repository secret
+      # Injects environment variables for the production Vite build:
+      # Option B (Recommended): Cloudflare Worker proxy URL (public URL)
+      # Option A (Fallback): Direct Resend API key (secret)
       - name: Build frontend
         run: npm ci && npm run build
         env:
+          CONTACT_PROXY_URL: ${{ vars.CONTACT_PROXY_URL || secrets.CONTACT_PROXY_URL }}
           VITE_RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
 
       - name: Deploy to Firebase Hosting
