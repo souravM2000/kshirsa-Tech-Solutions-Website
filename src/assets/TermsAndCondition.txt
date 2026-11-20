@@ -4,7 +4,7 @@ Kshirsa Technology Solutions
 Last Updated: November 2026 | Effective Date: November 2026
 
 1. Introduction and Acceptance
-1.1 These Terms and Conditions ("Terms") govern your access to and use of the website https://kshirsatechsolution.web.app (the "Website"), any software-as-a-service platforms or digital products operated by us ("SaaS Products"), and all software development, IT consulting, web and mobile application development, UI/UX design, cloud architecture, maintenance, and related services (collectively, the "Services") provided by Kshirsa Technology Solutions, having its principal place of business at Kolkata, West Bengal, India ("Kshirsa", "we", "us", or "our").
+1.1 These Terms and Conditions ("Terms") govern your access to and use of the website https://kshirsatechsolutions.web.app (the "Website"), any software-as-a-service platforms or digital products operated by us ("SaaS Products"), and all software development, IT consulting, web and mobile application development, UI/UX design, cloud architecture, maintenance, and related services (collectively, the "Services") provided by Kshirsa Technology Solutions, having its principal place of business at Kolkata, West Bengal, India ("Kshirsa", "we", "us", or "our").
 
 1.2 "Client", "you", or "your" means any individual, firm, company, or other legal entity that accesses the Website, subscribes to a SaaS Product, requests a quotation, or engages us for Services.
 
@@ -294,4 +294,4 @@ Email: contact.kshirsatech@gmail.com
 
 We will acknowledge receipt of any formal grievance within 72 hours and endeavor to resolve it within 30 calendar days from the date of receipt.
 
-By accessing https://kshirsatechsolution.web.app, subscribing to our SaaS Products, or engaging Kshirsa Technology Solutions for Services, you acknowledge that you have read, understood, and agreed to be legally bound by these Terms and Conditions.
+By accessing https://kshirsatechsolutions.web.app, subscribing to our SaaS Products, or engaging Kshirsa Technology Solutions for Services, you acknowledge that you have read, understood, and agreed to be legally bound by these Terms and Conditions.
