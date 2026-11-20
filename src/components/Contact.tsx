@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Send, CheckCircle2, AlertCircle, Loader2, Sparkles, ExternalLink } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle2, AlertCircle, Loader2, Sparkles } from 'lucide-react';
 import { ContactFormData } from '../types';
 import { Button } from './Button';
-import { sendContactEmail, buildMailtoUrl } from '../services/emailService';
+import { sendContactEmail } from '../services/emailService';
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -88,13 +88,8 @@ export const Contact: React.FC = () => {
       }
     } catch (err) {
       setStatus('error');
-      setStatusMessage('Direct transmission failed. Please use the email button below to contact our team directly.');
+      setStatusMessage('Submission failed. Please try again or email us directly at contact.kshirsatech@gmail.com');
     }
-  };
-
-  const handleOpenMailClient = () => {
-    const mailto = buildMailtoUrl(formData);
-    window.location.href = mailto;
   };
 
   const resetForm = () => {
@@ -206,16 +201,7 @@ export const Contact: React.FC = () => {
                   {status === 'error' && (
                     <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start gap-2.5">
                       <AlertCircle className="w-4 h-4 shrink-0 text-red-500 mt-0.5" />
-                      <div>
-                        <span>{statusMessage}</span>
-                        <button
-                          type="button"
-                          onClick={handleOpenMailClient}
-                          className="block underline font-semibold mt-1"
-                        >
-                          Click here to open email directly
-                        </button>
-                      </div>
+                      <span>{statusMessage}</span>
                     </div>
                   )}
 
