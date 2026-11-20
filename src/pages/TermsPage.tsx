@@ -265,16 +265,36 @@ export const TermsPage: React.FC = () => {
                         const isSubclause = /^\d+\.\d+/.test(paragraph);
                         const isFieldDefinition = /^[A-Za-z\s]+:/.test(paragraph);
 
-                        if (isGrievanceSection && paragraph.startsWith('Grievance Officer:')) {
+                        if (isGrievanceSection) {
+                          if (paragraph.startsWith('Grievance Officer:')) {
+                            return (
+                              <div key={pIdx} className="my-3 p-4 bg-emerald-50/80 rounded-xl border border-emerald-200 text-xs text-[#004D3B] space-y-1">
+                                <p className="font-bold text-sm text-[#006B4F]">Designated Statutory Grievance Officer</p>
+                                <p><strong>Officer:</strong> Sourav Mazumder</p>
+                                <p><strong>Entity:</strong> Kshirsa Technology Solutions</p>
+                                <p><strong>Principal Address:</strong> Kolkata, West Bengal, India</p>
+                                <p><strong>Email:</strong> <a href="mailto:contact.kshirsatech@gmail.com" className="font-bold text-emerald-700 underline">contact.kshirsatech@gmail.com</a></p>
+                                <p className="text-[11px] text-slate-500 pt-1">Formal grievances will be acknowledged within 72 hours and resolved within 30 calendar days.</p>
+                              </div>
+                            );
+                          }
+
+                          // Skip the individual lines that are already consolidated into the box above
+                          if (
+                            paragraph.startsWith('Entity Name:') ||
+                            paragraph.startsWith('Principal Address:') ||
+                            paragraph.startsWith('Email:') ||
+                            paragraph.startsWith('We will acknowledge receipt')
+                          ) {
+                            return null;
+                          }
+                        }
+
+                        if (paragraph.startsWith('By accessing https://')) {
                           return (
-                            <div key={pIdx} className="my-3 p-4 bg-emerald-50/80 rounded-xl border border-emerald-200 text-xs text-[#004D3B] space-y-1">
-                              <p className="font-bold text-sm text-[#006B4F]">Designated Statutory Grievance Officer</p>
-                              <p><strong>Officer:</strong> Sourav Mazumder</p>
-                              <p><strong>Entity:</strong> Kshirsa Technology Solutions</p>
-                              <p><strong>Principal Address:</strong> Kolkata, West Bengal, India</p>
-                              <p><strong>Email:</strong> <a href="mailto:contact.kshirsatech@gmail.com" className="font-bold text-emerald-700 underline">contact.kshirsatech@gmail.com</a></p>
-                              <p className="text-[11px] text-slate-500 pt-1">Formal grievances will be acknowledged within 72 hours and resolved within 30 calendar days.</p>
-                            </div>
+                            <p key={pIdx} className="mt-4 p-3.5 bg-emerald-50/50 rounded-xl border border-emerald-200/60 font-semibold text-xs text-[#004D3B]">
+                              {paragraph}
+                            </p>
                           );
                         }
 
