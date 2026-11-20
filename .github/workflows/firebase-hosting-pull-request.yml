@@ -14,11 +14,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build frontend
-        run: npm ci && npm run build
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check Environment Variables & Create .env.production
         env:
-          VITE_CONTACT_PROXY_URL: ${{ vars.VITE_CONTACT_PROXY_URL || vars.CONTACT_PROXY_URL || secrets.VITE_CONTACT_PROXY_URL || secrets.CONTACT_PROXY_URL }}
-          VITE_RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESOLVED_PROXY_URL: ${{ vars.VITE_CONTACT_PROXY_URL || vars.CONTACT_PROXY_URL || secrets.VITE_CONTACT_PROXY_URL || secrets.CONTACT_PROXY_URL }}
+        run: |
+          echo "=========================================="
+          echo "GITHUB ACTIONS BUILD ENVIRONMENT CHECK"
+          echo "=========================================="
+          if [ -z "$RESOLVED_PROXY_URL" ]; then
+            echo "❌ ERROR: No Cloudflare Worker URL found!"
+          else
+            echo "✅ SUCCESS: Found Cloudflare Worker Proxy URL!"
+            echo "Proxy URL preview: ${RESOLVED_PROXY_URL:0:30}..."
+          fi
+          echo "VITE_CONTACT_PROXY_URL=$RESOLVED_PROXY_URL" > .env.production
+          echo "=========================================="
+
+      - name: Build frontend
+        run: npm run build
 
       - name: Deploy preview to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0

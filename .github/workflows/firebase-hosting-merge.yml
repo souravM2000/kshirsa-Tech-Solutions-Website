@@ -11,12 +11,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Maps either CONTACT_PROXY_URL or VITE_CONTACT_PROXY_URL to Vite's build environment
-      - name: Build frontend
-        run: npm ci && npm run build
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Inspect and log the Cloudflare Worker URL from GitHub Secrets/Variables
+      - name: Check Environment Variables & Create .env.production
         env:
-          VITE_CONTACT_PROXY_URL: ${{ vars.VITE_CONTACT_PROXY_URL || vars.CONTACT_PROXY_URL || secrets.VITE_CONTACT_PROXY_URL || secrets.CONTACT_PROXY_URL }}
-          VITE_RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESOLVED_PROXY_URL: ${{ vars.VITE_CONTACT_PROXY_URL || vars.CONTACT_PROXY_URL || secrets.VITE_CONTACT_PROXY_URL || secrets.CONTACT_PROXY_URL }}
+        run: |
+          echo "=========================================="
+          echo "GITHUB ACTIONS BUILD ENVIRONMENT CHECK"
+          echo "=========================================="
+          if [ -z "$RESOLVED_PROXY_URL" ]; then
+            echo "❌ ERROR: No Cloudflare Worker URL found!"
+            echo "Please add CONTACT_PROXY_URL or VITE_CONTACT_PROXY_URL in GitHub Repository Settings -> Variables or Secrets."
+          else
+            echo "✅ SUCCESS: Found Cloudflare Worker Proxy URL!"
+            # Show first 20 characters for verification without leaking full secret if sensitive
+            echo "Proxy URL preview: ${RESOLVED_PROXY_URL:0:30}..."
+            echo "URL character length: ${#RESOLVED_PROXY_URL}"
+          fi
+          echo "Writing VITE_CONTACT_PROXY_URL to .env.production for Vite build..."
+          echo "VITE_CONTACT_PROXY_URL=$RESOLVED_PROXY_URL" > .env.production
+          echo "=========================================="
+
+      # Build frontend with Vite using the created .env.production
+      - name: Build frontend
+        run: npm run build
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0

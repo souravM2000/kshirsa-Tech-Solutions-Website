@@ -17,7 +17,6 @@ export const Contact: React.FC = () => {
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState<string>('');
-  const [isFallbackMode, setIsFallbackMode] = useState<boolean>(false);
 
   const servicesList = [
     'AI & Generative AI',
@@ -83,7 +82,6 @@ export const Contact: React.FC = () => {
       if (result.success) {
         setStatus('success');
         setStatusMessage(result.message);
-        setIsFallbackMode(Boolean(result.isFallback));
       } else {
         setStatus('error');
         setStatusMessage(result.message || 'Direct transmission could not be completed.');
@@ -110,7 +108,6 @@ export const Contact: React.FC = () => {
     });
     setStatus('idle');
     setErrors({});
-    setIsFallbackMode(false);
   };
 
   return (
@@ -194,23 +191,15 @@ export const Contact: React.FC = () => {
                   <div className="w-16 h-16 rounded-full bg-emerald-100 text-[#00B887] flex items-center justify-center mx-auto mb-4 animate-bounce">
                     <CheckCircle2 className="w-10 h-10 text-[#00B887]" />
                   </div>
-                  <h4 className="text-2xl font-bold text-[#092D3A] mb-2">Inquiry Prepared!</h4>
+                  <h4 className="text-2xl font-bold text-[#092D3A] mb-2">Message Sent!</h4>
                   <p className="text-slate-600 text-sm max-w-md mx-auto mb-6">
                     {statusMessage}
                   </p>
-                  <div className="flex flex-wrap justify-center gap-3">
-                    <Button onClick={handleOpenMailClient} variant="primary" size="md">
-                      Send via Email Client <ExternalLink className="w-3.5 h-3.5 ml-1 inline" />
-                    </Button>
-                    <Button onClick={resetForm} variant="secondary" size="md">
+                  <div className="flex justify-center">
+                    <Button onClick={resetForm} variant="primary" size="md">
                       Send Another Message
                     </Button>
                   </div>
-                  {isFallbackMode && (
-                    <p className="text-[11px] text-slate-400 mt-4 max-w-sm mx-auto">
-                      Tip: To enable direct background sending without client prompt, set your <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700">VITE_RESEND_API_KEY</code> in <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700">.env</code>.
-                    </p>
-                  )}
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-5">
