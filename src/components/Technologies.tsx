@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
-import { technologiesData, techCategories } from '../data/technologies';
+import React from 'react';
 import { TechLogo } from './TechLogos';
 
 export const Technologies: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('all');
-
-  const filteredTechnologies =
-    activeCategory === 'all'
-      ? technologiesData
-      : technologiesData.filter((t) => t.category === activeCategory);
-
   return (
     <section id="technologies" className="py-20 md:py-24 bg-gradient-to-b from-[#F4FCF9]/50 via-white to-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,8 +18,8 @@ export const Technologies: React.FC = () => {
           </p>
         </div>
 
-        {/* Primary Visual Logo Strip (Matching Reference Design Layout) */}
-        <div className="bg-white rounded-3xl p-6 md:p-8 shadow-card border border-emerald-100/70 mb-12">
+        {/* Primary Visual Logo Strip */}
+        <div className="bg-white rounded-3xl p-6 md:p-8 shadow-card border border-emerald-100/70">
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-9 py-2">
             {/* Java */}
             <div className="flex items-center gap-2 px-2 py-1 rounded-xl hover:bg-slate-50 transition-colors">
@@ -118,43 +110,6 @@ export const Technologies: React.FC = () => {
             <span className="mx-2 text-slate-300">|</span>
             <span>and more...</span>
           </div>
-        </div>
-
-        {/* Category Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-          {techCategories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
-                activeCategory === cat.id
-                  ? 'bg-[#00B887] text-white shadow-button-glow'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-700'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Filtered Technology Grid with Category Chips */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {filteredTechnologies.map((tech) => (
-            <div
-              key={tech.name}
-              className="group bg-white rounded-2xl p-4 shadow-sm border border-slate-100 hover:border-emerald-200 hover:shadow-card-hover transition-all duration-200 flex flex-col items-center justify-center text-center hover:-translate-y-1"
-            >
-              <div className="w-12 h-12 flex items-center justify-center mb-2.5 transition-transform duration-200 group-hover:scale-110">
-                <TechLogo id={tech.iconId} size={36} />
-              </div>
-              <span className="text-xs font-bold text-[#092D3A] block truncate max-w-full">
-                {tech.name}
-              </span>
-              <span className="text-[10px] uppercase font-semibold text-emerald-600 mt-1 tracking-wider bg-emerald-50 px-2 py-0.5 rounded-full">
-                {tech.category}
-              </span>
-            </div>
-          ))}
         </div>
       </div>
     </section>
