@@ -2,124 +2,124 @@ import React, { useState } from 'react';
 import { LotusBrand } from './LotusBrand';
 import { Mail, Linkedin, Twitter, ArrowUp, X, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const [modalType, setModalType] = useState<'privacy' | null>(null);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const lenis = (window as any).__lenis;
+    if (lenis) lenis.scrollTo(0, { duration: 1.1 });
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const navItems = [
+    { label: 'Home', href: '/#home' },
+    { label: 'Services', href: '/#services' },
+    { label: 'Technologies', href: '/#technologies' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Why Choose Us', href: '/#why-us' },
+    { label: 'Industries', href: '/#clients' },
+    { label: 'Contact', href: '/#contact' },
+  ];
+
   return (
-    <footer className="bg-[#004D3B] text-white pt-16 pb-12 border-t border-emerald-800 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-emerald-800/80">
+    <footer className="bg-[#002E23] text-white pt-12 pb-8 border-t border-emerald-900/80 relative overflow-hidden">
+      {/* Large faded brand wordmark watermark */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+      >
+        <span
+          className="text-[11vw] font-black uppercase tracking-widest text-emerald-950/60 whitespace-nowrap font-display"
+          style={{ userSelect: 'none' }}
+        >
+          KSHIRSA
+        </span>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-emerald-900/70">
           {/* Column 1 & 2: Brand Information */}
           <div className="lg:col-span-2 flex flex-col justify-between">
             <div>
               <LotusBrand size="md" inverted />
-              <p className="mt-4 text-emerald-100/90 text-sm max-w-sm leading-relaxed">
-                Kshirsa Technology Solutions is a technology consultancy and IT services company providing modern, scalable, and innovative technology solutions to businesses worldwide.
+              <p className="mt-4 text-emerald-100/80 text-sm max-w-sm leading-relaxed font-sans">
+                Kshirsa Technology Solutions is a technology consultancy and engineering partner delivering resilient Cloud, AI, and scalable enterprise software solutions worldwide.
               </p>
-              <div className="mt-4 inline-block px-3 py-1 rounded-full bg-[#006B4F] text-emerald-200 text-xs font-semibold">
+              <div className="mt-3.5 inline-block px-3 py-1 rounded-full bg-[#004D3B] text-emerald-300 text-xs font-semibold">
                 Simplifying Technology. Empowering Businesses.
               </div>
-
-              {/* Location Badge */}
-              <div className="mt-4 flex items-center gap-2 text-xs text-emerald-200/90">
+              <div className="mt-3.5 flex items-center gap-2 text-xs text-emerald-300/80">
                 <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Kolkata, West Bengal, India</span>
               </div>
             </div>
 
-            {/* Social & Contact Links */}
-            <div className="mt-6 flex items-center gap-3">
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-[#006B4F] hover:bg-[#00B887] text-white flex items-center justify-center transition-colors"
-                aria-label="Kshirsa LinkedIn"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-[#006B4F] hover:bg-[#00B887] text-white flex items-center justify-center transition-colors"
-                aria-label="Kshirsa Twitter"
-              >
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a
-                href="mailto:contact.kshirsatech@gmail.com"
-                className="w-9 h-9 rounded-full bg-[#006B4F] hover:bg-[#00B887] text-white flex items-center justify-center transition-colors"
-                aria-label="Email Kshirsa"
-              >
-                <Mail className="w-4 h-4" />
-              </a>
+            {/* Social links */}
+            <div className="mt-5 flex items-center gap-3">
+              {[
+                { href: 'https://linkedin.com', Icon: Linkedin, label: 'Kshirsa LinkedIn' },
+                { href: 'https://twitter.com', Icon: Twitter, label: 'Kshirsa Twitter' },
+                { href: 'mailto:contact.kshirsatech@gmail.com', Icon: Mail, label: 'Email Kshirsa' },
+              ].map(({ href, Icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="w-9 h-9 rounded-full bg-[#004D3B] hover:bg-[#00B887] text-white flex items-center justify-center transition-all duration-200 hover:scale-110"
+                  aria-label={label}
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
             </div>
           </div>
 
           {/* Column 3: Quick Navigation */}
           <div>
-            <h4 className="text-sm font-bold text-emerald-300 uppercase tracking-wider mb-4">
+            <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-3.5 font-display">
               Quick Links
             </h4>
-            <ul className="space-y-2 text-sm text-emerald-100/80">
-              <li>
-                <a href="/#home" className="hover:text-white transition-colors">Home</a>
-              </li>
-              <li>
-                <a href="/#services" className="hover:text-white transition-colors">Services</a>
-              </li>
-              <li>
-                <a href="/#technologies" className="hover:text-white transition-colors">Technologies</a>
-              </li>
-              <li>
-                <a href="/#why-us" className="hover:text-white transition-colors">Why Choose Us</a>
-              </li>
-              <li>
-                <a href="/#clients" className="hover:text-white transition-colors">Clients</a>
-              </li>
-              <li>
-                <a href="/#contact" className="hover:text-white transition-colors">Contact</a>
-              </li>
+            <ul className="space-y-2 text-xs text-emerald-100/70">
+              {navItems.map((item) => (
+                <li key={item.label}>
+                  <a href={item.href} className="hover:text-white transition-colors">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Column 4: Services */}
           <div>
-            <h4 className="text-sm font-bold text-emerald-300 uppercase tracking-wider mb-4">
-              Services
+            <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-3.5 font-display">
+              Capabilities
             </h4>
-            <ul className="space-y-2 text-sm text-emerald-100/80">
-              <li>
-                <a href="/#services" className="hover:text-white transition-colors">AI & Generative AI</a>
-              </li>
-              <li>
-                <a href="/#services" className="hover:text-white transition-colors">Cloud Solutions</a>
-              </li>
-              <li>
-                <a href="/#services" className="hover:text-white transition-colors">Application Development</a>
-              </li>
-              <li>
-                <a href="/#services" className="hover:text-white transition-colors">IT Consulting & Advisory</a>
-              </li>
-              <li>
-                <a href="/#services" className="hover:text-white transition-colors">Modernization & Migration</a>
-              </li>
-              <li>
-                <a href="/#services" className="hover:text-white transition-colors">Maintenance & Support</a>
-              </li>
+            <ul className="space-y-2 text-xs text-emerald-100/70">
+              {[
+                'AI & Generative AI',
+                'Cloud Architecture',
+                'Application Engineering',
+                'IT Advisory & Strategy',
+                'Legacy Modernization',
+                '24/7 SLA Maintenance',
+              ].map((s) => (
+                <li key={s}>
+                  <a href="/#services" className="hover:text-white transition-colors">
+                    {s}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Column 5: Connect */}
+          {/* Column 5: Consultation */}
           <div>
-            <h4 className="text-sm font-bold text-emerald-300 uppercase tracking-wider mb-4">
+            <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-3.5 font-display">
               Get In Touch
             </h4>
             <p className="text-xs text-emerald-100/80 mb-3">
@@ -131,8 +131,7 @@ export const Footer: React.FC = () => {
             >
               Request a Consultation
             </a>
-
-            <div className="mt-6 text-xs text-emerald-200/80 space-y-1">
+            <div className="mt-5 text-xs text-emerald-300/80 space-y-1">
               <span className="block">Email: contact.kshirsatech@gmail.com</span>
               <span className="block">Location: Kolkata, West Bengal, India</span>
               <span className="block mt-1">Hours: Mon - Fri, 9am - 6pm</span>
@@ -140,11 +139,9 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Legal */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-emerald-200/80">
-          <p>
-            &copy; {currentYear} KSHIRSA TECHNOLOGY SOLUTIONS. All rights reserved.
-          </p>
+        {/* Bottom bar */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-emerald-300/70">
+          <p>&copy; {currentYear} KSHIRSA TECHNOLOGY SOLUTIONS. All rights reserved.</p>
 
           <div className="flex items-center gap-6">
             <button
@@ -155,17 +152,21 @@ export const Footer: React.FC = () => {
             </button>
             <Link
               to="/terms"
-              className="hover:text-white transition-colors underline cursor-pointer font-semibold text-emerald-300 hover:text-white"
+              className="hover:text-white transition-colors underline cursor-pointer font-semibold text-emerald-300"
             >
               Terms &amp; Conditions
             </Link>
-            <button
+
+            {/* Back to top */}
+            <motion.button
               onClick={scrollToTop}
-              className="w-8 h-8 rounded-full bg-[#006B4F] text-emerald-200 hover:text-white flex items-center justify-center transition-colors"
+              className="w-9 h-9 rounded-full bg-[#004D3B] hover:bg-[#00B887] text-white flex items-center justify-center transition-colors shadow-button-glow"
               aria-label="Scroll to top"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
             >
               <ArrowUp className="w-4 h-4" />
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
@@ -173,7 +174,12 @@ export const Footer: React.FC = () => {
       {/* Accessible Privacy Modal */}
       {modalType === 'privacy' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="bg-white text-slate-800 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative border border-emerald-100">
+          <motion.div
+            className="bg-white text-slate-800 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative border border-emerald-100"
+            initial={{ opacity: 0, scale: 0.95, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          >
             <button
               onClick={() => setModalType(null)}
               className="absolute top-5 right-5 p-1 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100"
@@ -181,10 +187,7 @@ export const Footer: React.FC = () => {
             >
               <X className="w-5 h-5" />
             </button>
-
-            <h3 className="text-xl font-bold text-[#092D3A] mb-3">
-              Privacy Policy
-            </h3>
+            <h3 className="text-xl font-bold text-[#092D3A] mb-3 font-display">Privacy Policy</h3>
             <div className="text-xs text-slate-600 space-y-3 max-h-80 overflow-y-auto pr-2">
               <p>
                 <strong>KSHIRSA TECHNOLOGY SOLUTIONS</strong> (Kolkata, West Bengal, India) respects the privacy of our clients and site visitors.
@@ -208,7 +211,7 @@ export const Footer: React.FC = () => {
                 Close
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
     </footer>
