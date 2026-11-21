@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '../hooks/useReducedMotion';
-import { ShieldCheck, Sparkles } from 'lucide-react';
 
 interface LotusBrandProps {
   className?: string;
@@ -42,16 +41,16 @@ export const LotusBrand: React.FC<LotusBrandProps> = ({
       </div>
 
       {showText && (
-        <div className="flex flex-col leading-tight">
+        <div className="flex flex-col justify-center">
           <span
-            className={`font-black tracking-wider uppercase font-display ${textStyles[size]} ${
+            className={`font-black tracking-wider uppercase font-display leading-tight pb-0.5 ${textStyles[size]} ${
               inverted ? 'text-white' : 'text-[#092D3A]'
             }`}
           >
             KSHIRSA
           </span>
           <span
-            className={`font-semibold tracking-widest text-[9px] md:text-[10px] uppercase ${
+            className={`font-semibold tracking-widest text-[9px] md:text-[10px] uppercase leading-normal ${
               inverted ? 'text-emerald-300' : 'text-[#006B4F]'
             }`}
           >
@@ -67,31 +66,25 @@ export const LotusHeroGraphic: React.FC = () => {
   const reduced = useReducedMotion();
 
   return (
-    <div className="relative w-full max-w-[460px] aspect-square flex items-center justify-center mx-auto">
+    <div className="relative w-full max-w-[220px] sm:max-w-[320px] lg:max-w-[420px] aspect-square flex items-center justify-center mx-auto">
       {/* Radiant ambient glow */}
       <motion.div
-        className="absolute inset-4 rounded-full"
+        className="absolute inset-2 rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(0,184,135,0.28) 0%, rgba(78,203,171,0.12) 50%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(0,184,135,0.25) 0%, rgba(78,203,171,0.1) 50%, transparent 70%)',
         }}
-        animate={reduced ? {} : { scale: [1, 1.05, 1], opacity: [0.6, 0.9, 0.6] }}
+        animate={reduced ? {} : { scale: [1, 1.05, 1], opacity: [0.6, 0.85, 0.6] }}
         transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* Glass Showcase Card */}
-      <div className="relative z-10 w-full h-full rounded-3xl p-8 flex flex-col items-center justify-center bg-white/70 backdrop-blur-xl border border-emerald-200/70 shadow-card-emerald">
+      {/* Clean Glass Showcase Card */}
+      <div className="relative z-10 w-full h-full rounded-2xl sm:rounded-3xl p-4 sm:p-8 lg:p-10 flex flex-col items-center justify-center bg-white/75 backdrop-blur-xl border border-emerald-200/70 shadow-card-emerald">
         {/* Subtle decorative grid lines */}
-        <div className="absolute inset-0 rounded-3xl dot-grid opacity-25 pointer-events-none" />
-
-        {/* Top subtle badge */}
-        <div className="relative z-10 mb-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-xs font-bold text-[#006B4F]">
-          <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
-          <span>Innovate &bull; Modernize &bull; Scale</span>
-        </div>
+        <div className="absolute inset-0 rounded-2xl sm:rounded-3xl dot-grid opacity-25 pointer-events-none" />
 
         {/* Center Logo with float */}
         <motion.div
-          className="relative z-10 w-44 h-44 sm:w-56 sm:h-56 flex items-center justify-center"
+          className="relative z-10 w-24 h-24 sm:w-44 sm:h-44 lg:w-56 lg:h-56 flex items-center justify-center"
           animate={reduced ? {} : { y: [0, -6, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         >
@@ -99,15 +92,9 @@ export const LotusHeroGraphic: React.FC = () => {
             src="/kshirsa-logo.jpg"
             alt="Kshirsa Official Brand Emblem"
             loading="lazy"
-            className="w-full h-full object-contain filter drop-shadow-[0_12px_24px_rgba(0,184,135,0.25)]"
+            className="w-full h-full object-contain filter drop-shadow-[0_12px_24px_rgba(0,184,135,0.22)]"
           />
         </motion.div>
-
-        {/* Bottom trust tag */}
-        <div className="relative z-10 mt-4 flex items-center gap-2 text-xs font-semibold text-slate-600 bg-white/90 px-4 py-2 rounded-xl border border-slate-100 shadow-xs">
-          <ShieldCheck className="w-4 h-4 text-emerald-600" />
-          <span>Enterprise Consulting &bull; Kolkata, India</span>
-        </div>
       </div>
     </div>
   );

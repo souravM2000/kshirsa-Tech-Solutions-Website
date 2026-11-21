@@ -12,16 +12,16 @@ export const Technologies: React.FC = () => {
   const loopRow2 = [...row2, ...row2, ...row2];
 
   return (
-    <section id="technologies" className="py-12 md:py-16 bg-white border-y border-emerald-100/50 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <section id="technologies" className="py-8 sm:py-12 md:py-16 bg-white border-y border-emerald-100/50 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
         <Reveal className="text-center max-w-3xl mx-auto">
           <span className="text-xs font-bold tracking-widest text-[#00B887] uppercase bg-emerald-50 border border-emerald-200/60 px-3.5 py-1.5 rounded-full inline-block mb-3">
             Enterprise Architecture &amp; Stack
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#092D3A] tracking-tight font-display">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#092D3A] tracking-tight leading-[1.2] pb-1 font-display">
             Built on Industry-Standard Technology
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+          <p className="mt-2 sm:mt-3 text-xs sm:text-base text-slate-600 max-w-2xl mx-auto">
             From resilient cloud infrastructure to advanced AI and full-stack enterprise systems, we engineer solutions designed for scale, security, and long-term durability.
           </p>
         </Reveal>

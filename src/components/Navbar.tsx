@@ -93,7 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection = 'home' }) => {
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`relative py-1 text-sm font-semibold transition-colors duration-200 ${
+                  className={`relative py-2 text-sm font-semibold transition-colors duration-200 ${
                     isActive ? 'text-[#006B4F] font-bold' : 'text-slate-600 hover:text-[#00B887]'
                   }`}
                 >
@@ -101,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection = 'home' }) => {
                   {isActive && (
                     <motion.span
                       layoutId="nav-underline"
-                      className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-[#00B887] rounded-full"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#00B887] rounded-full"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}

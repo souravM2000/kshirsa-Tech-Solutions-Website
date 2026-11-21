@@ -43,7 +43,7 @@ const stats: HighlightStat[] = [
 ];
 
 const renderIcon = (type: HighlightStat['icon']) => {
-  const cls = 'w-5 h-5 text-emerald-300';
+  const cls = 'w-4 h-4 sm:w-5 sm:h-5 text-emerald-300';
   switch (type) {
     case 'users': return <Users className={cls} />;
     case 'trophy': return <Trophy className={cls} />;
@@ -52,13 +52,21 @@ const renderIcon = (type: HighlightStat['icon']) => {
   }
 };
 
+const borderClasses = [
+  'border-r border-b lg:border-b-0 border-emerald-700/50',
+  'border-b lg:border-b-0 lg:border-r border-emerald-700/50',
+  'border-r border-emerald-700/50',
+  '',
+];
+
 interface StatCardProps {
   stat: HighlightStat;
+  borderClass?: string;
 }
 
-const StatCard: React.FC<StatCardProps> = ({ stat }) => {
+const StatCard: React.FC<StatCardProps> = ({ stat, borderClass = '' }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const inView = useInView(ref, { once: true, margin: '-40px' });
   const reduced = useReducedMotion();
 
   const isCountable = stat.value === '25+' || stat.value === '100%';
@@ -67,15 +75,15 @@ const StatCard: React.FC<StatCardProps> = ({ stat }) => {
     <motion.div
       ref={ref}
       variants={staggerItem}
-      className="flex flex-col items-center text-center px-4 py-8 group"
+      className={`flex flex-col items-center text-center px-2.5 py-4 sm:px-4 sm:py-8 group ${borderClass}`}
     >
       {/* Icon Pill */}
-      <div className="w-12 h-12 rounded-2xl bg-white/10 border border-emerald-400/20 flex items-center justify-center mb-4 group-hover:bg-white/15 group-hover:scale-105 transition-all duration-300">
+      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/10 border border-emerald-400/20 flex items-center justify-center mb-2 sm:mb-4 group-hover:bg-white/15 group-hover:scale-105 transition-all duration-300">
         {renderIcon(stat.icon)}
       </div>
 
       {/* Primary Value */}
-      <div className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-none mb-2 font-display">
+      <div className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight pb-0.5 sm:pb-1 mb-1 sm:mb-2 font-display">
         {isCountable && inView && !reduced ? (
           <CountUp
             start={0}
@@ -90,10 +98,10 @@ const StatCard: React.FC<StatCardProps> = ({ stat }) => {
       </div>
 
       {/* Title */}
-      <h3 className="text-base font-bold text-white tracking-tight">{stat.title}</h3>
+      <h3 className="text-xs sm:text-base font-bold text-white tracking-tight leading-tight">{stat.title}</h3>
 
       {/* Description */}
-      <p className="text-xs text-emerald-200/80 mt-1 max-w-[200px] leading-relaxed">
+      <p className="text-[10px] sm:text-xs text-emerald-200/80 mt-0.5 sm:mt-1 max-w-[130px] sm:max-w-[200px] leading-tight sm:leading-relaxed">
         {stat.description}
       </p>
     </motion.div>
@@ -102,11 +110,11 @@ const StatCard: React.FC<StatCardProps> = ({ stat }) => {
 
 export const Stats: React.FC = () => {
   return (
-    <section className="py-6 md:py-8 relative z-20">
+    <section className="py-4 md:py-8 relative z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div
-            className="relative rounded-3xl overflow-hidden shadow-card-emerald border border-emerald-800/60"
+            className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-card-emerald border border-emerald-800/60"
             style={{
               background: 'linear-gradient(135deg, #004D3B 0%, #006047 45%, #003628 100%)',
             }}
@@ -118,14 +126,14 @@ export const Stats: React.FC = () => {
             </div>
 
             <motion.div
-              className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-emerald-700/50"
+              className="relative z-10 grid grid-cols-2 lg:grid-cols-4"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: '-60px' }}
+              viewport={{ once: true, margin: '-40px' }}
             >
               {stats.map((stat, idx) => (
-                <StatCard key={idx} stat={stat} />
+                <StatCard key={idx} stat={stat} borderClass={borderClasses[idx]} />
               ))}
             </motion.div>
           </div>

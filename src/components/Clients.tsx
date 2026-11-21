@@ -38,17 +38,17 @@ const industries = [
 
 export const Clients: React.FC = () => {
   return (
-    <section id="clients" className="py-12 md:py-16 bg-white relative">
+    <section id="clients" className="py-8 sm:py-12 md:py-16 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <Reveal className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
+        <Reveal className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
           <span className="text-xs font-bold tracking-widest text-[#00B887] uppercase bg-emerald-50 border border-emerald-200/60 px-3.5 py-1.5 rounded-full inline-block mb-3">
             Domain Expertise
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#092D3A] tracking-tight font-display">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#092D3A] tracking-tight leading-[1.2] pb-1 font-display">
             Industries We Transform
           </h2>
-          <p className="mt-3 text-base text-slate-600">
+          <p className="mt-2 sm:mt-3 text-xs sm:text-base text-slate-600">
             Tailoring modern architectures and engineering discipline to the regulatory and operational demands of mission-critical sectors.
           </p>
         </Reveal>

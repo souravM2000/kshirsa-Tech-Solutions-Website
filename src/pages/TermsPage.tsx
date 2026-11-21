@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Search, ShieldCheck, Printer, Mail, MapPin, FileText, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Search, ShieldCheck, Printer, Mail, MapPin, FileText, ChevronDown, CheckCircle2 } from 'lucide-react';
 import { LotusBrand } from '../components/LotusBrand';
 import { Footer } from '../components/Footer';
 import termsRaw from '../assets/TermsAndCondition.txt?raw';
@@ -16,6 +16,7 @@ export const TermsPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSectionNum, setActiveSectionNum] = useState<number>(1);
   const [copied, setCopied] = useState(false);
+  const [isMobileTocOpen, setIsMobileTocOpen] = useState(false);
 
   // Scroll to top on load
   useEffect(() => {
@@ -166,12 +167,12 @@ export const TermsPage: React.FC = () => {
       </section>
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: Sticky Table of Contents & Search (Desktop) */}
-          <aside className="lg:col-span-4 sticky top-20 space-y-4">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 flex-grow w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+          {/* Left Column: Sticky Table of Contents & Search (Desktop Only Sticky) */}
+          <aside className="lg:col-span-4 lg:sticky lg:top-24 space-y-4">
             {/* Search Input */}
-            <div className="bg-white rounded-2xl p-4 border border-emerald-100 shadow-card">
+            <div className="bg-white rounded-2xl p-3.5 sm:p-4 border border-emerald-100 shadow-card">
               <div className="relative">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
@@ -196,27 +197,57 @@ export const TermsPage: React.FC = () => {
             </div>
 
             {/* Table of Contents List */}
-            <div className="bg-white rounded-2xl p-4 border border-emerald-100 shadow-card max-h-[70vh] overflow-y-auto">
-              <h3 className="text-xs font-bold text-[#092D3A] uppercase tracking-wider mb-3">
-                Clauses ({sections.length})
-              </h3>
-              <nav className="space-y-1">
-                {sections.map((sec) => (
-                  <a
-                    key={sec.number}
-                    href={`#clause-${sec.number}`}
-                    onClick={() => setActiveSectionNum(sec.number)}
-                    className={`block px-2.5 py-1.5 rounded-lg text-xs transition-colors truncate ${
-                      activeSectionNum === sec.number
-                        ? 'bg-emerald-50 text-[#006B4F] font-bold border-l-2 border-[#00B887]'
-                        : 'text-slate-600 hover:text-emerald-700 hover:bg-slate-50'
+            <div className="bg-white rounded-2xl border border-emerald-100 shadow-card overflow-hidden">
+              {/* Header / Mobile Accordion Toggle */}
+              <button
+                type="button"
+                onClick={() => setIsMobileTocOpen((prev) => !prev)}
+                className="w-full p-4 flex items-center justify-between text-left select-none lg:cursor-default"
+                aria-expanded={isMobileTocOpen}
+              >
+                <div className="flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-[#00B887]" />
+                  <h3 className="text-xs font-bold text-[#092D3A] uppercase tracking-wider">
+                    Clauses ({filteredSections.length})
+                  </h3>
+                </div>
+                <div className="flex items-center gap-1.5 lg:hidden text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200/60">
+                  <span>{isMobileTocOpen ? 'Hide' : 'Jump to Clause'}</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      isMobileTocOpen ? 'rotate-180' : ''
                     }`}
-                  >
-                    <span className="font-semibold text-slate-400 mr-1.5">{sec.number}.</span>
-                    {sec.title}
-                  </a>
-                ))}
-              </nav>
+                  />
+                </div>
+              </button>
+
+              {/* Navigation List */}
+              <div
+                className={`px-4 pb-4 max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh] overflow-y-auto ${
+                  isMobileTocOpen ? 'block' : 'hidden lg:block'
+                }`}
+              >
+                <nav className="space-y-1 pt-2 border-t border-slate-100 lg:border-t-0">
+                  {filteredSections.map((sec) => (
+                    <a
+                      key={sec.number}
+                      href={`#clause-${sec.number}`}
+                      onClick={() => {
+                        setActiveSectionNum(sec.number);
+                        setIsMobileTocOpen(false);
+                      }}
+                      className={`block px-2.5 py-1.5 rounded-lg text-xs transition-colors truncate ${
+                        activeSectionNum === sec.number
+                          ? 'bg-emerald-50 text-[#006B4F] font-bold border-l-2 border-[#00B887]'
+                          : 'text-slate-600 hover:text-emerald-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      <span className="font-semibold text-slate-400 mr-1.5">{sec.number}.</span>
+                      {sec.title}
+                    </a>
+                  ))}
+                </nav>
+              </div>
             </div>
           </aside>
 

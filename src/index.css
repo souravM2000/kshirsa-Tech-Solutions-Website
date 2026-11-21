@@ -7,12 +7,23 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     /* Lenis handles smooth scrolling; keep default here */
     scroll-behavior: auto;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
     background-color: #F8FDFB;
     color: #092D3A;
     overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* Universal protection against descender cut-off on all pages */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.25;
+    padding-bottom: 0.08em;
   }
 
   ::selection {
@@ -189,10 +200,13 @@
   animation: checkDraw 0.5s ease forwards 0.2s;
 }
 
-/* ─── Gradient text ──────────────────────────────── */
+/* ─── Gradient text with descender clearance ─────── */
 .gradient-text-emerald-teal {
   background: linear-gradient(135deg, #00B887 0%, #14B8A6 50%, #2DD4BF 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline-block;
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
 }

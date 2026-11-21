@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { LotusHeroGraphic } from './LotusBrand';
 import { useReducedMotion } from '../hooks/useReducedMotion';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Lenis from 'lenis';
 
 export const Hero: React.FC = () => {
@@ -40,7 +40,7 @@ export const Hero: React.FC = () => {
     <section
       id="home"
       ref={containerRef}
-      className="relative pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden bg-gradient-to-b from-[#E8FAF3] via-[#F4FCF9] to-white"
+      className="relative pt-24 pb-10 sm:pt-28 sm:pb-16 md:pt-36 md:pb-24 lg:pt-40 lg:pb-28 overflow-hidden bg-gradient-to-b from-[#E8FAF3] via-[#F4FCF9] to-white"
     >
       {/* Brand color gradient ambient glows & curved wave shapes */}
       <div className="absolute top-0 right-0 -mr-32 -mt-16 w-[620px] h-[620px] bg-gradient-to-br from-[#8EE1C7]/35 via-[#C2EFE1]/25 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
@@ -81,46 +81,36 @@ export const Hero: React.FC = () => {
       <div className="absolute inset-0 dot-grid opacity-35 pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-10 items-center">
           {/* Left Column */}
           <div className="lg:col-span-7 flex flex-col justify-center text-left">
-            {/* Small corporate pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-emerald-200/90 shadow-xs mb-4 w-max">
+            {/* Elegant category pill */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/90 border border-emerald-200/90 shadow-2xs mb-4 sm:mb-6 w-max">
               <span className="w-2 h-2 rounded-full bg-[#00B887] animate-pulse" />
-              <span className="text-xs font-bold text-[#006B4F] uppercase tracking-wider">
-                Technology Consultancy &bull; Kolkata
+              <span className="text-[11px] sm:text-xs font-semibold text-[#006B4F] tracking-wide">
+                Enterprise Technology Solutions
               </span>
             </div>
 
-            {/* Main Company Heading */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-extrabold text-[#092D3A] tracking-tight leading-[1.08] font-display">
-              KSHIRSA
-              <span className="block mt-1 font-bold text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] text-slate-800">
-                TECHNOLOGY SOLUTIONS
+            {/* Main Punchy Value Headline */}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-extrabold text-[#092D3A] tracking-tight leading-[1.18] font-display pb-1">
+              Simplifying Technology.
+              <span className="block mt-1 sm:mt-3 gradient-text-emerald-teal">
+                Empowering Businesses.
               </span>
             </h1>
 
-            {/* Tagline */}
-            <div className="mt-4 sm:mt-5">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-[#092D3A] tracking-tight leading-tight font-display">
-                Simplifying Technology.
-                <span className="block gradient-text-emerald-teal">
-                  Empowering Businesses.
-                </span>
-              </h2>
-            </div>
-
-            {/* Description */}
-            <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed font-sans">
-              We architect resilient cloud solutions, bespoke AI platforms, and enterprise software systems designed to accelerate your growth and modernize critical operations.
+            {/* Clean, spacious description */}
+            <p className="mt-4 sm:mt-6 text-sm sm:text-lg text-slate-600 max-w-xl leading-relaxed font-sans">
+              We architect resilient cloud solutions, bespoke AI platforms, and enterprise software systems designed to scale your operations.
             </p>
 
-            {/* CTAs */}
-            <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-4">
+            {/* Spacious CTAs */}
+            <div className="mt-6 sm:mt-10 flex flex-wrap items-center gap-3 sm:gap-4">
               <a
                 href="#contact"
                 onClick={(e) => scrollToSection(e, 'contact')}
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#00B887] to-[#009B71] text-white text-base font-bold shadow-button-glow hover:shadow-glow-emerald transition-all duration-200 active:scale-95 group"
+                className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-3.5 rounded-full bg-gradient-to-r from-[#00B887] to-[#009B71] text-white text-xs sm:text-base font-bold shadow-button-glow hover:shadow-glow-emerald transition-all duration-200 active:scale-95 group"
               >
                 <span>Book a Free Consultation</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -128,26 +118,10 @@ export const Hero: React.FC = () => {
               <a
                 href="#services"
                 onClick={(e) => scrollToSection(e, 'services')}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-[#092D3A] border-2 border-slate-200 text-base font-bold hover:border-[#00B887] hover:text-[#006B4F] hover:bg-emerald-50/40 transition-all duration-200 active:scale-95"
+                className="inline-flex items-center gap-2 px-5 py-3 sm:px-7 sm:py-3.5 rounded-full bg-white text-[#092D3A] border border-slate-200 text-xs sm:text-base font-bold hover:border-[#00B887] hover:text-[#006B4F] hover:bg-emerald-50/40 transition-all duration-200 active:scale-95 shadow-2xs"
               >
                 Explore Services
               </a>
-            </div>
-
-            {/* Trust Micro-Badges */}
-            <div className="mt-8 pt-5 border-t border-emerald-200/60 flex flex-wrap items-center gap-5 sm:gap-7 text-xs text-slate-600 font-semibold">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#00B887]" />
-                <span>Enterprise Architecture</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#00B887]" />
-                <span>100% On-Time Delivery</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#00B887]" />
-                <span>Senior IT Talent</span>
-              </div>
             </div>
           </div>
 

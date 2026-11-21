@@ -48,19 +48,19 @@ export const WhyChooseUs: React.FC = () => {
   };
 
   return (
-    <section id="why-us" className="py-12 md:py-16 relative bg-[#F4FCF9]/80 overflow-hidden">
+    <section id="why-us" className="py-8 sm:py-12 md:py-16 relative bg-[#F4FCF9]/80 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8 items-center">
           {/* Left Column: Differentiators */}
           <div className="lg:col-span-6 flex flex-col justify-center text-left">
             <Reveal>
               <span className="text-xs font-bold tracking-widest text-[#00B887] uppercase bg-emerald-50 border border-emerald-200/60 px-3.5 py-1.5 rounded-full inline-block mb-3">
                 Why Partner With Kshirsa
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#092D3A] tracking-tight leading-tight font-display">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#092D3A] tracking-tight leading-[1.2] pb-1 font-display">
                 Your Strategic Technology Partner
               </h2>
-              <p className="mt-3 text-base text-slate-600 leading-relaxed font-sans">
+              <p className="mt-2 sm:mt-3 text-xs sm:text-base text-slate-600 leading-relaxed font-sans">
                 We combine deep technical mastery with business acumen to build software that drives compounding enterprise value.
               </p>
             </Reveal>
