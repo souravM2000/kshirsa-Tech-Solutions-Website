@@ -5,7 +5,6 @@
 @layer base {
   html {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    /* Lenis handles smooth scrolling; keep default here */
     scroll-behavior: auto;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -18,9 +17,14 @@
     color: #092D3A;
     overflow-x: hidden;
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  /* Universal protection against descender cut-off on all pages */
+  .dark body {
+    background-color: #070F0D;
+    color: #E0F2EE;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.25;
     padding-bottom: 0.08em;
@@ -32,32 +36,61 @@
   }
 }
 
-/* ─── Scrollbar ─────────────────────────────────── */
-::-webkit-scrollbar { width: 8px; }
+/* ─── Global transition for dark mode ──────────────── */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Exceptions — keep animation-driven elements snappy */
+.marquee-track, .marquee-track-slow, [class*="animate-"] {
+  transition: none !important;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #F0FAF6; }
 ::-webkit-scrollbar-thumb { background: #A2E5D2; border-radius: 9999px; }
 ::-webkit-scrollbar-thumb:hover { background: #00B887; }
+.dark ::-webkit-scrollbar-track { background: #0C1F1A; }
+.dark ::-webkit-scrollbar-thumb { background: #1A4532; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #00B887; }
 
-/* ─── Background helpers ─────────────────────────── */
+/* ─── Background helpers ─────────────────────────────── */
 .bg-mesh-radial {
   background: radial-gradient(circle at 85% 20%, rgba(0, 184, 135, 0.12) 0%, rgba(0, 184, 135, 0.02) 45%, transparent 70%);
 }
+.dark .bg-mesh-radial {
+  background: radial-gradient(circle at 85% 20%, rgba(0, 184, 135, 0.08) 0%, transparent 60%);
+}
+
 .bg-curved-ribbon {
   background: linear-gradient(135deg, rgba(229, 248, 242, 0.7) 0%, rgba(244, 252, 249, 0.4) 100%);
 }
+.dark .bg-curved-ribbon {
+  background: linear-gradient(135deg, rgba(0, 77, 59, 0.3) 0%, rgba(7, 15, 13, 0.4) 100%);
+}
 
-/* ─── Dotted grid overlay ────────────────────────── */
+/* ─── Dotted grid overlay ─────────────────────────────── */
 .dot-grid {
   background-image: radial-gradient(circle, rgba(0, 184, 135, 0.18) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+.dark .dot-grid {
+  background-image: radial-gradient(circle, rgba(0, 184, 135, 0.12) 1px, transparent 1px);
+}
 
-/* ─── Glassmorphism ──────────────────────────────── */
+/* ─── Glassmorphism ───────────────────────────────────── */
 .glass-panel {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 184, 135, 0.12);
+}
+.dark .glass-panel {
+  background: rgba(10, 25, 20, 0.85);
+  border: 1px solid rgba(0, 184, 135, 0.15);
 }
 .glass-nav {
   background: rgba(255, 255, 255, 0.92);
@@ -65,16 +98,26 @@
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid rgba(0, 184, 135, 0.12);
 }
+.dark .glass-nav {
+  background: rgba(7, 15, 13, 0.90);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 184, 135, 0.15);
+}
 .glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 .glass-panel-hover:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 32px -4px rgba(0, 184, 135, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
   border-color: rgba(0, 184, 135, 0.3);
 }
+.dark .glass-panel-hover:hover {
+  box-shadow: 0 16px 40px -4px rgba(0, 184, 135, 0.2), 0 4px 16px -2px rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 184, 135, 0.4);
+}
 
-/* ─── Marquee ────────────────────────────────────── */
+/* ─── Marquee ──────────────────────────────────────────── */
 .marquee-track {
   display: flex;
   width: max-content;
@@ -96,14 +139,14 @@
   animation-play-state: paused;
 }
 
-/* ─── Floating-label form fields ─────────────────── */
+/* ─── Floating-label form fields ──────────────────────── */
 .field-wrap {
   position: relative;
 }
 .field-wrap input,
 .field-wrap textarea,
 .field-wrap select {
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.25s !important;
 }
 .field-wrap input:focus,
 .field-wrap textarea:focus,
@@ -113,7 +156,6 @@
   box-shadow: 0 0 0 3px rgba(0, 184, 135, 0.18);
 }
 
-/* Floating label behaviour */
 .floating-label-wrap {
   position: relative;
 }
@@ -130,7 +172,7 @@
   font-size: 0.875rem;
   color: #94a3b8;
   pointer-events: none;
-  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
   line-height: 1;
 }
 .floating-label-wrap textarea ~ label {
@@ -150,7 +192,7 @@
   text-transform: uppercase;
 }
 
-/* ─── Glow border cursor tracker ────────────────── */
+/* ─── Glow border cursor tracker ────────────────────── */
 .glow-card {
   position: relative;
   overflow: hidden;
@@ -161,16 +203,19 @@
   inset: 0;
   border-radius: inherit;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s !important;
   background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(0, 184, 135, 0.14), transparent 60%);
   pointer-events: none;
   z-index: 0;
+}
+.dark .glow-card::before {
+  background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(0, 184, 135, 0.22), transparent 60%);
 }
 .glow-card:hover::before {
   opacity: 1;
 }
 
-/* ─── Float animations ───────────────────────────── */
+/* ─── Float animations ────────────────────────────────── */
 .animate-float-slow {
   animation: floatSlow 6s ease-in-out infinite;
 }
@@ -178,7 +223,35 @@
   animation: pulseGlow 4s ease-in-out infinite;
 }
 
-/* ─── Reduced-motion overrides ───────────────────── */
+/* ─── Shimmer / Noise grain for GenZ dark aesthetic ──── */
+.dark-noise {
+  position: relative;
+}
+.dark-noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ─── Dark mode card glow aura ──────────────────────── */
+.dark-card-glow {
+  position: relative;
+}
+.dark .dark-card-glow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(0, 184, 135, 0.12) 0%, transparent 50%, rgba(0, 184, 135, 0.06) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Reduced-motion overrides ────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .animate-float-slow,
   .animate-pulse-glow,
@@ -189,7 +262,7 @@
   }
 }
 
-/* ─── Success checkmark animation ───────────────── */
+/* ─── Success checkmark animation ───────────────────── */
 @keyframes checkDraw {
   0% { stroke-dashoffset: 100; }
   100% { stroke-dashoffset: 0; }
@@ -200,7 +273,7 @@
   animation: checkDraw 0.5s ease forwards 0.2s;
 }
 
-/* ─── Gradient text with descender clearance ─────── */
+/* ─── Gradient text with descender clearance ──────────── */
 .gradient-text-emerald-teal {
   background: linear-gradient(135deg, #00B887 0%, #14B8A6 50%, #2DD4BF 100%);
   -webkit-background-clip: text;
@@ -209,4 +282,73 @@
   display: inline-block;
   padding-bottom: 0.18em;
   margin-bottom: -0.18em;
+}
+.dark .gradient-text-emerald-teal {
+  background: linear-gradient(135deg, #00D4A0 0%, #2DD4BF 50%, #5EEAD4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Theme toggle button animation ─────────────────── */
+@keyframes toggleIn {
+  from { transform: rotate(-90deg) scale(0.5); opacity: 0; }
+  to { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+.theme-icon-enter {
+  animation: toggleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ─── Neon glow utility (dark only) ─────────────────── */
+.dark .neon-glow {
+  box-shadow: 0 0 20px rgba(0, 184, 135, 0.3), 0 0 60px rgba(0, 184, 135, 0.1);
+}
+
+/* ─── Mobile tap highlight removal ──────────────────── */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ─── Animate marquee reverse (CSS only fallback) ───── */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-33.333%); }
+}
+@keyframes marquee-reverse {
+  0% { transform: translateX(-33.333%); }
+  100% { transform: translateX(0%); }
+}
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 32s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-reverse {
+    animation: none;
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(1deg); }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.04); }
+}
+
+/* ─── GenZ glow border on inputs in dark mode ───────── */
+.dark .floating-label-wrap input:focus,
+.dark .floating-label-wrap textarea:focus {
+  border-color: #00B887;
+  box-shadow: 0 0 0 3px rgba(0, 184, 135, 0.2), 0 0 20px rgba(0, 184, 135, 0.08);
+}
+
+/* ─── Responsive touch targets ───────────────────────── */
+@media (max-width: 768px) {
+  button, a[role="button"], .btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }

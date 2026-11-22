@@ -7,14 +7,20 @@ export const TechLaptopGraphic: React.FC = () => {
   const reduced = useReducedMotion();
 
   return (
-    <div className="relative w-full max-w-[500px] mx-auto">
+    <div className="relative w-full max-w-[460px] sm:max-w-[500px] mx-auto">
       {/* Background radial ambient glow */}
-      <div className="absolute -inset-2 bg-gradient-to-tr from-emerald-400/20 via-teal-300/10 to-transparent rounded-3xl blur-2xl -z-10" />
+      <div className="absolute -inset-2 bg-gradient-to-tr from-emerald-400/20 via-teal-300/10 to-transparent dark:from-emerald-500/15 dark:via-teal-400/8 rounded-3xl blur-2xl -z-10" />
 
       {/* Main Glass Architectural Showcase Card */}
-      <div className="relative rounded-2xl sm:rounded-3xl bg-[#092D3A] text-white p-4 sm:p-7 shadow-2xl border border-emerald-500/30 overflow-hidden">
+      <div className="relative rounded-2xl sm:rounded-3xl bg-[#092D3A] dark:bg-[#061511] text-white p-4 sm:p-6 shadow-2xl border border-emerald-500/30 dark:border-emerald-500/20 overflow-hidden">
+        {/* Subtle grid overlay */}
+        <div className="absolute inset-0 dot-grid opacity-10 pointer-events-none" />
+
+        {/* Top glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent" />
+
         {/* Terminal Header */}
-        <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-700/60 mb-3 sm:mb-5">
+        <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-700/60 dark:border-emerald-900/60 mb-3 sm:mb-5">
           <div className="flex items-center gap-1.5 sm:gap-2">
             <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-400/80 inline-block" />
             <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-400/80 inline-block" />
@@ -33,7 +39,7 @@ export const TechLaptopGraphic: React.FC = () => {
         {/* Real-time Architecture Metrics */}
         <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-3 sm:mb-5">
           {/* Card 1 */}
-          <div className="bg-slate-800/60 border border-slate-700/50 rounded-xl p-2.5 sm:p-3">
+          <div className="bg-slate-800/60 dark:bg-emerald-950/40 border border-slate-700/50 dark:border-emerald-900/50 rounded-xl p-2.5 sm:p-3 group hover:border-emerald-500/30 transition-colors duration-300">
             <div className="flex items-center gap-1.5 text-slate-400 text-[11px] sm:text-xs mb-1">
               <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-400" />
               <span>Response Latency</span>
@@ -43,7 +49,7 @@ export const TechLaptopGraphic: React.FC = () => {
           </div>
 
           {/* Card 2 */}
-          <div className="bg-slate-800/60 border border-slate-700/50 rounded-xl p-2.5 sm:p-3">
+          <div className="bg-slate-800/60 dark:bg-emerald-950/40 border border-slate-700/50 dark:border-emerald-900/50 rounded-xl p-2.5 sm:p-3 group hover:border-emerald-500/30 transition-colors duration-300">
             <div className="flex items-center gap-1.5 text-slate-400 text-[11px] sm:text-xs mb-1">
               <Server className="w-3.5 h-3.5 text-teal-400" />
               <span>Cloud Topology</span>
@@ -54,25 +60,25 @@ export const TechLaptopGraphic: React.FC = () => {
         </div>
 
         {/* Live Architecture Code Stream */}
-        <div className="bg-[#051A22] rounded-xl p-3 sm:p-4 border border-emerald-900/50 font-mono text-[10px] sm:text-xs text-slate-300 space-y-1 sm:space-y-1.5 mb-3 sm:mb-5">
+        <div className="bg-[#051A22] dark:bg-[#030C09] rounded-xl p-3 sm:p-4 border border-emerald-900/50 font-mono text-[10px] sm:text-xs text-slate-300 space-y-1 sm:space-y-1.5 mb-3 sm:mb-5">
           <div className="text-emerald-400 text-[10px] sm:text-[11px] font-semibold">// Architecture Specification</div>
           <div className="flex items-center justify-between text-slate-400">
-            <span>&bull; Security &amp; Compliance:</span>
-            <span className="text-white font-semibold">Zero-Trust &bull; OWASP</span>
+            <span>• Security &amp; Compliance:</span>
+            <span className="text-white font-semibold">Zero-Trust • OWASP</span>
           </div>
           <div className="flex items-center justify-between text-slate-400">
-            <span>&bull; Deployment Pipeline:</span>
+            <span>• Deployment Pipeline:</span>
             <span className="text-emerald-300 font-semibold">Continuous CI/CD</span>
           </div>
           <div className="flex items-center justify-between text-slate-400">
-            <span>&bull; Architecture Paradigm:</span>
+            <span>• Architecture Paradigm:</span>
             <span className="text-white font-semibold">Cloud Microservices</span>
           </div>
         </div>
 
         {/* Floating Trust Indicator */}
         <motion.div
-          className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-emerald-900/60 to-slate-900/80 border border-emerald-500/30"
+          className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-emerald-900/60 to-slate-900/80 dark:from-emerald-950/80 dark:to-slate-950/80 border border-emerald-500/30 dark:border-emerald-500/20"
           animate={reduced ? {} : { y: [0, -3, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
         >

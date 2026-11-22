@@ -25,22 +25,25 @@ export const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-[#002E23] text-white pt-12 pb-8 border-t border-emerald-900/80 relative overflow-hidden">
+    <footer className="bg-[#002E23] dark:bg-[#040D0A] text-white pt-12 pb-8 border-t border-emerald-900/80 dark:border-emerald-900/40 relative overflow-hidden">
       {/* Large faded brand wordmark watermark */}
       <div
         aria-hidden="true"
         className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
       >
         <span
-          className="text-[11vw] font-black uppercase tracking-widest text-emerald-950/60 whitespace-nowrap font-display"
+          className="text-[11vw] font-black uppercase tracking-widest text-emerald-950/60 dark:text-emerald-900/30 whitespace-nowrap font-display"
           style={{ userSelect: 'none' }}
         >
           KSHIRSA
         </span>
       </div>
 
+      {/* Top glow line */}
+      <div className="hidden dark:block absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-emerald-900/70">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-emerald-900/70 dark:border-emerald-900/40">
           {/* Column 1 & 2: Brand Information */}
           <div className="lg:col-span-2 flex flex-col justify-between">
             <div>
@@ -48,7 +51,7 @@ export const Footer: React.FC = () => {
               <p className="mt-4 text-emerald-100/80 text-sm max-w-sm leading-relaxed font-sans">
                 Kshirsa Technology Solutions is a technology consultancy and engineering partner delivering resilient Cloud, AI, and scalable enterprise software solutions worldwide.
               </p>
-              <div className="mt-3.5 inline-block px-3 py-1 rounded-full bg-[#004D3B] text-emerald-300 text-xs font-semibold">
+              <div className="mt-3.5 inline-block px-3 py-1 rounded-full bg-[#004D3B] dark:bg-emerald-900/50 text-emerald-300 text-xs font-semibold border border-emerald-700/40 dark:border-emerald-500/20">
                 Simplifying Technology. Empowering Businesses.
               </div>
               <div className="mt-3.5 flex items-center gap-2 text-xs text-emerald-300/80">
@@ -69,7 +72,7 @@ export const Footer: React.FC = () => {
                   href={href}
                   target={href.startsWith('http') ? '_blank' : undefined}
                   rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="w-9 h-9 rounded-full bg-[#004D3B] hover:bg-[#00B887] text-white flex items-center justify-center transition-all duration-200 hover:scale-110"
+                  className="w-9 h-9 rounded-full bg-[#004D3B] dark:bg-emerald-900/50 hover:bg-[#00B887] text-white flex items-center justify-center transition-all duration-200 hover:scale-110 border border-emerald-700/30 dark:border-emerald-500/20 hover:border-emerald-500/50"
                   aria-label={label}
                 >
                   <Icon className="w-4 h-4" />
@@ -86,7 +89,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-xs text-emerald-100/70">
               {navItems.map((item) => (
                 <li key={item.label}>
-                  <a href={item.href} className="hover:text-white transition-colors">
+                  <a href={item.href} className="hover:text-white dark:hover:text-emerald-300 transition-colors">
                     {item.label}
                   </a>
                 </li>
@@ -109,7 +112,7 @@ export const Footer: React.FC = () => {
                 '24/7 SLA Maintenance',
               ].map((s) => (
                 <li key={s}>
-                  <a href="/#services" className="hover:text-white transition-colors">
+                  <a href="/#services" className="hover:text-white dark:hover:text-emerald-300 transition-colors">
                     {s}
                   </a>
                 </li>
@@ -134,7 +137,7 @@ export const Footer: React.FC = () => {
             <div className="mt-5 text-xs text-emerald-300/80 space-y-1">
               <span className="block">Email: contact.kshirsatech@gmail.com</span>
               <span className="block">Location: Kolkata, West Bengal, India</span>
-              <span className="block mt-1">Hours: Mon - Fri, 9am - 6pm</span>
+              <span className="block mt-1">Hours: Mon - Fri, 9am - 6pm IST</span>
             </div>
           </div>
         </div>
@@ -143,16 +146,16 @@ export const Footer: React.FC = () => {
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-emerald-300/70">
           <p>&copy; {currentYear} KSHIRSA TECHNOLOGY SOLUTIONS. All rights reserved.</p>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 sm:gap-6">
             <button
               onClick={() => setModalType('privacy')}
-              className="hover:text-white transition-colors underline cursor-pointer"
+              className="hover:text-white dark:hover:text-emerald-300 transition-colors underline cursor-pointer"
             >
               Privacy Policy
             </button>
             <Link
               to="/terms"
-              className="hover:text-white transition-colors underline cursor-pointer font-semibold text-emerald-300"
+              className="hover:text-white dark:hover:text-emerald-300 transition-colors underline cursor-pointer font-semibold text-emerald-300"
             >
               Terms &amp; Conditions
             </Link>
@@ -160,7 +163,7 @@ export const Footer: React.FC = () => {
             {/* Back to top */}
             <motion.button
               onClick={scrollToTop}
-              className="w-9 h-9 rounded-full bg-[#004D3B] hover:bg-[#00B887] text-white flex items-center justify-center transition-colors shadow-button-glow"
+              className="w-9 h-9 rounded-full bg-[#004D3B] dark:bg-emerald-900/50 hover:bg-[#00B887] text-white flex items-center justify-center transition-colors shadow-button-glow border border-emerald-700/30 dark:border-emerald-500/20"
               aria-label="Scroll to top"
               whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.95 }}
@@ -173,22 +176,22 @@ export const Footer: React.FC = () => {
 
       {/* Accessible Privacy Modal */}
       {modalType === 'privacy' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-sm">
           <motion.div
-            className="bg-white text-slate-800 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative border border-emerald-100"
+            className="bg-white dark:bg-[#0D1F1A] text-slate-800 dark:text-slate-200 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative border border-emerald-100 dark:border-emerald-900/60"
             initial={{ opacity: 0, scale: 0.95, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             <button
               onClick={() => setModalType(null)}
-              className="absolute top-5 right-5 p-1 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+              className="absolute top-5 right-5 p-1 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
-            <h3 className="text-xl font-bold text-[#092D3A] mb-3 font-display">Privacy Policy</h3>
-            <div className="text-xs text-slate-600 space-y-3 max-h-80 overflow-y-auto pr-2">
+            <h3 className="text-xl font-bold text-[#092D3A] dark:text-white mb-3 font-display">Privacy Policy</h3>
+            <div className="text-xs text-slate-600 dark:text-slate-400 space-y-3 max-h-80 overflow-y-auto pr-2">
               <p>
                 <strong>KSHIRSA TECHNOLOGY SOLUTIONS</strong> (Kolkata, West Bengal, India) respects the privacy of our clients and site visitors.
                 Any information submitted through our contact forms is used solely to evaluate technical inquiries, provide project estimates, and facilitate professional communications.
@@ -198,7 +201,7 @@ export const Footer: React.FC = () => {
               </p>
               <p>
                 For official data protection or compliance requests, please reach out to{' '}
-                <a href="mailto:contact.kshirsatech@gmail.com" className="text-emerald-600 font-semibold underline">
+                <a href="mailto:contact.kshirsatech@gmail.com" className="text-emerald-600 dark:text-emerald-400 font-semibold underline">
                   contact.kshirsatech@gmail.com
                 </a>.
               </p>

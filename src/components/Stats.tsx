@@ -53,9 +53,9 @@ const renderIcon = (type: HighlightStat['icon']) => {
 };
 
 const borderClasses = [
-  'border-r border-b lg:border-b-0 border-emerald-700/50',
-  'border-b lg:border-b-0 lg:border-r border-emerald-700/50',
-  'border-r border-emerald-700/50',
+  'border-r border-b lg:border-b-0 border-emerald-700/40',
+  'border-b lg:border-b-0 lg:border-r border-emerald-700/40',
+  'border-r border-emerald-700/40',
   '',
 ];
 
@@ -75,10 +75,10 @@ const StatCard: React.FC<StatCardProps> = ({ stat, borderClass = '' }) => {
     <motion.div
       ref={ref}
       variants={staggerItem}
-      className={`flex flex-col items-center text-center px-2.5 py-4 sm:px-4 sm:py-8 group ${borderClass}`}
+      className={`flex flex-col items-center text-center px-3 py-5 sm:px-4 sm:py-8 group ${borderClass}`}
     >
       {/* Icon Pill */}
-      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/10 border border-emerald-400/20 flex items-center justify-center mb-2 sm:mb-4 group-hover:bg-white/15 group-hover:scale-105 transition-all duration-300">
+      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/10 border border-emerald-400/20 flex items-center justify-center mb-2 sm:mb-4 group-hover:bg-white/15 group-hover:scale-110 group-hover:border-emerald-400/40 transition-all duration-300">
         {renderIcon(stat.icon)}
       </div>
 
@@ -88,7 +88,7 @@ const StatCard: React.FC<StatCardProps> = ({ stat, borderClass = '' }) => {
           <CountUp
             start={0}
             end={stat.numberValue}
-            duration={2}
+            duration={2.2}
             suffix={stat.suffix}
             useEasing
           />
@@ -98,10 +98,10 @@ const StatCard: React.FC<StatCardProps> = ({ stat, borderClass = '' }) => {
       </div>
 
       {/* Title */}
-      <h3 className="text-xs sm:text-base font-bold text-white tracking-tight leading-tight">{stat.title}</h3>
+      <h3 className="text-xs sm:text-sm font-bold text-white/95 tracking-tight leading-tight">{stat.title}</h3>
 
       {/* Description */}
-      <p className="text-[10px] sm:text-xs text-emerald-200/80 mt-0.5 sm:mt-1 max-w-[130px] sm:max-w-[200px] leading-tight sm:leading-relaxed">
+      <p className="text-[10px] sm:text-xs text-emerald-200/75 mt-0.5 sm:mt-1.5 max-w-[130px] sm:max-w-[180px] leading-tight sm:leading-relaxed">
         {stat.description}
       </p>
     </motion.div>
@@ -110,19 +110,20 @@ const StatCard: React.FC<StatCardProps> = ({ stat, borderClass = '' }) => {
 
 export const Stats: React.FC = () => {
   return (
-    <section className="py-4 md:py-8 relative z-20">
+    <section className="py-5 md:py-8 relative z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div
-            className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-card-emerald border border-emerald-800/60"
+            className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-card-emerald border border-emerald-800/60 dark-noise"
             style={{
               background: 'linear-gradient(135deg, #004D3B 0%, #006047 45%, #003628 100%)',
             }}
           >
-            {/* Ambient inner soft glow */}
+            {/* Ambient glows */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-0 right-1/4 w-80 h-40 bg-emerald-400/15 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-1/4 w-80 h-40 bg-teal-400/15 rounded-full blur-3xl" />
+              <div className="absolute top-0 right-1/4 w-72 sm:w-80 h-40 bg-emerald-400/15 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-1/4 w-72 sm:w-80 h-40 bg-teal-400/15 rounded-full blur-3xl" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-emerald-300/5 rounded-full blur-3xl" />
             </div>
 
             <motion.div

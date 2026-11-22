@@ -14,7 +14,7 @@ const SuccessState: React.FC<{ message: string; onReset: () => void }> = ({ mess
   >
     <div className="relative w-20 h-20 mx-auto mb-5">
       <motion.div
-        className="absolute inset-0 rounded-full bg-emerald-100"
+        className="absolute inset-0 rounded-full bg-emerald-100 dark:bg-emerald-900/50"
         initial={{ scale: 0.6, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.4 }}
@@ -33,8 +33,8 @@ const SuccessState: React.FC<{ message: string; onReset: () => void }> = ({ mess
         />
       </svg>
     </div>
-    <h3 className="text-2xl font-bold text-[#092D3A] mb-2 font-display">Message Sent!</h3>
-    <p className="text-slate-600 text-sm max-w-md mx-auto mb-6">{message}</p>
+    <h3 className="text-2xl font-bold text-[#092D3A] dark:text-white mb-2 font-display">Message Sent!</h3>
+    <p className="text-slate-600 dark:text-slate-400 text-sm max-w-md mx-auto mb-6">{message}</p>
     <button
       onClick={onReset}
       className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#00B887] text-white font-bold text-sm shadow-button-glow hover:bg-[#009B71] transition-all"
@@ -62,11 +62,11 @@ const FloatingField: React.FC<FloatingFieldProps> = ({
   id, name, label, type = 'text', value, onChange, error,
   multiline = false, rows = 4, required = false, optional = false,
 }) => {
-  const baseClass = `w-full px-4 rounded-xl border text-sm text-[#092D3A] bg-white transition-all duration-200 ${
+  const baseClass = `w-full px-4 rounded-xl border text-sm text-[#092D3A] dark:text-white bg-white dark:bg-[#0D2520]/60 transition-all duration-200 ${
     error
-      ? 'border-red-400 ring-2 ring-red-200'
-      : 'border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200'
-  } focus:outline-none`;
+      ? 'border-red-400 ring-2 ring-red-200 dark:ring-red-500/20'
+      : 'border-slate-200 dark:border-emerald-900/60 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-500/20'
+  } focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-600`;
 
   return (
     <div className="floating-label-wrap">
@@ -91,7 +91,7 @@ const FloatingField: React.FC<FloatingFieldProps> = ({
           className={`${baseClass} h-14`}
         />
       )}
-      <label htmlFor={id}>
+      <label htmlFor={id} className="dark:text-slate-400">
         {label}
         {required && <span className="text-red-400 ml-0.5">*</span>}
         {optional && <span className="text-slate-400 ml-1 font-normal lowercase">(optional)</span>}
@@ -190,43 +190,47 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-12 md:py-16 bg-[#F4FCF9]/80 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-14 md:py-20 bg-[#F4FCF9]/80 dark:bg-[#080F0D] relative overflow-hidden">
+      {/* Dark mode ambient */}
+      <div className="hidden dark:block absolute top-0 right-0 w-96 h-96 bg-emerald-500/4 rounded-full blur-3xl pointer-events-none" />
+      <div className="hidden dark:block absolute bottom-0 left-0 w-72 h-72 bg-teal-500/4 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <Reveal className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
-          <span className="text-xs font-bold tracking-widest text-[#00B887] uppercase bg-emerald-50 border border-emerald-200/60 px-3.5 py-1.5 rounded-full inline-block mb-3">
+        <Reveal className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
+          <span className="text-xs font-bold tracking-widest text-[#00B887] dark:text-emerald-400 uppercase bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200/60 dark:border-emerald-500/20 px-3.5 py-1.5 rounded-full inline-block mb-3">
             Start a Conversation
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#092D3A] tracking-tight leading-[1.2] pb-1 font-display">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#092D3A] dark:text-white tracking-tight leading-[1.2] pb-1 font-display">
             Direct Engineering Inquiry
           </h2>
-          <p className="mt-3 text-base text-slate-600">
+          <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">
             Have a project in mind or need an architectural roadmap? Speak directly with our principal engineers.
           </p>
         </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
           {/* Left: Contact Info */}
-          <Reveal direction="left" className="lg:col-span-5 flex flex-col justify-between space-y-6">
+          <Reveal direction="left" className="lg:col-span-5 flex flex-col justify-between space-y-5">
             <div>
-              <h3 className="text-2xl font-bold text-[#092D3A] mb-3 font-display">
+              <h3 className="text-xl sm:text-2xl font-bold text-[#092D3A] dark:text-white mb-3 font-display">
                 Partner with Kshirsa
               </h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 font-sans">
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6 font-sans">
                 Whether you need dedicated squad augmentation, cloud architecture advisory, or an enterprise AI rollout, we provide transparent consulting and rapid execution.
               </p>
 
               <div className="space-y-3.5">
                 {/* Email */}
-                <div className="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-xs border border-emerald-100/80 hover:border-emerald-300 transition-colors group">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0 group-hover:bg-emerald-100 transition-colors">
+                <div className="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-[#0D1F1A] shadow-xs border border-emerald-100/80 dark:border-emerald-900/40 hover:border-emerald-300 dark:hover:border-emerald-500/30 transition-colors group">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/40 flex items-center justify-center shrink-0 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-800/40 transition-colors">
                     <Mail className="w-5 h-5 text-[#00B887]" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Official Email</span>
+                    <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Official Email</span>
                     <a
                       href="mailto:contact.kshirsatech@gmail.com"
-                      className="text-sm font-semibold text-[#092D3A] hover:text-[#00B887] transition-colors break-all"
+                      className="text-sm font-semibold text-[#092D3A] dark:text-white hover:text-[#00B887] dark:hover:text-emerald-400 transition-colors break-all"
                     >
                       contact.kshirsatech@gmail.com
                     </a>
@@ -234,34 +238,37 @@ export const Contact: React.FC = () => {
                 </div>
 
                 {/* Location */}
-                <div className="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-xs border border-emerald-100/80">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0">
+                <div className="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-[#0D1F1A] shadow-xs border border-emerald-100/80 dark:border-emerald-900/40">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/40 flex items-center justify-center shrink-0">
                     <MapPin className="w-5 h-5 text-[#00B887]" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Headquarters</span>
-                    <span className="text-sm font-semibold text-[#092D3A]">Kolkata, West Bengal, India</span>
+                    <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">Headquarters</span>
+                    <span className="text-sm font-semibold text-[#092D3A] dark:text-white">Kolkata, West Bengal, India</span>
                   </div>
                 </div>
 
                 {/* Resend info */}
-                <div className="flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-emerald-50/80 border border-emerald-200/60 text-xs text-[#006B4F]">
-                  <Sparkles className="w-4 h-4 text-emerald-600 shrink-0" />
+                <div className="flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-emerald-50/80 dark:bg-emerald-900/20 border border-emerald-200/60 dark:border-emerald-500/20 text-xs text-[#006B4F] dark:text-emerald-400">
+                  <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   <span>Powered by Resend transactional mail services. Fast, secure, and encrypted.</span>
                 </div>
               </div>
             </div>
 
             {/* Commitment badge */}
-            <div className="p-4 rounded-2xl bg-[#E5F8F2] border border-emerald-200/90 text-xs text-[#006B4F] leading-relaxed">
-              <strong className="font-bold block text-sm text-[#004D3B] mb-1">Our Commitment:</strong>
+            <div className="p-4 rounded-2xl bg-[#E5F8F2] dark:bg-emerald-900/20 border border-emerald-200/90 dark:border-emerald-500/20 text-xs text-[#006B4F] dark:text-emerald-400 leading-relaxed">
+              <strong className="font-bold block text-sm text-[#004D3B] dark:text-emerald-300 mb-1">Our Commitment:</strong>
               All technical inquiries receive an initial architecture and scoping response within 24 business hours under strict confidentiality.
             </div>
           </Reveal>
 
           {/* Right: Form */}
           <Reveal direction="right" className="lg:col-span-7">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-9 shadow-card border border-emerald-100 relative">
+            <div className="bg-white dark:bg-[#0D1F1A] rounded-3xl p-5 sm:p-7 md:p-9 shadow-card dark:shadow-none border border-emerald-100 dark:border-emerald-900/40 relative overflow-hidden">
+              {/* Dark mode glow top */}
+              <div className="hidden dark:block absolute top-0 left-1/2 -translate-x-1/2 w-64 h-1 bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent rounded-full" />
+
               <AnimatePresence mode="wait">
                 {status === 'success' ? (
                   <SuccessState key="success" message={statusMessage} onReset={resetForm} />
@@ -278,7 +285,7 @@ export const Contact: React.FC = () => {
                     <AnimatePresence>
                       {status === 'error' && (
                         <motion.div
-                          className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start gap-2.5"
+                          className="p-3.5 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 text-xs text-red-700 dark:text-red-400 flex items-start gap-2.5"
                           initial={{ opacity: 0, y: -8 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0 }}
@@ -316,13 +323,13 @@ export const Contact: React.FC = () => {
                     </div>
 
                     <div className="field-wrap">
-                      <label htmlFor="service" className="block text-xs font-bold text-[#092D3A] mb-1.5 uppercase tracking-wide">
+                      <label htmlFor="service" className="block text-xs font-bold text-[#092D3A] dark:text-slate-300 mb-1.5 uppercase tracking-wide">
                         Service Interested In
                       </label>
                       <select
                         id="service" name="service"
                         value={formData.service} onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm text-[#092D3A] focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-emerald-900/60 bg-white dark:bg-[#0D2520]/60 text-sm text-[#092D3A] dark:text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-500/20 transition-all"
                       >
                         {servicesList.map((svc) => (
                           <option key={svc} value={svc}>{svc}</option>

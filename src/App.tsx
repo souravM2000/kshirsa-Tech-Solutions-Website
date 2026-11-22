@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
+import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Services } from './components/Services';
@@ -106,41 +107,23 @@ const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8FDFB] text-[#092D3A] selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#F8FDFB] dark:bg-[#070F0D] text-[#092D3A] dark:text-[#E0F2EE] transition-colors duration-300 selection:bg-emerald-500 selection:text-white">
       {/* Top Fixed Header */}
       <Navbar activeSection={activeSection} />
 
-      {/* Main Content Sections with Alternating Background Cadence */}
+      {/* Main Content Sections */}
       <main className="flex-grow">
-        {/* 1. Hero (Gradient mint & emerald) */}
         <Hero />
-
-        {/* 2. Technologies Logo Stream (White) */}
         <Technologies />
-
-        {/* 3. Services (Soft Emerald Tint) */}
         <Services />
-
-        {/* 4. Statistics Highlight Band (Dark Emerald Band) */}
         <Stats />
-
-        {/* 5. How We Work - 4-step Process Timeline (White) */}
         <HowWeWork />
-
-        {/* 6. Why Choose Us (Soft Emerald Tint) */}
         <WhyChooseUs />
-
-        {/* 7. Industry Verticals (White) */}
         <Clients />
-
-        {/* 8. High-Impact CTA Banner (Dark Emerald Gradient) */}
         <CtaBanner />
-
-        {/* 9. Contact Inquiry (Soft Emerald Tint) */}
         <Contact />
       </main>
 
-      {/* 10. Footer (Deep Obsidian Emerald) */}
       <Footer />
     </div>
   );
@@ -148,28 +131,33 @@ const HomePage: React.FC = () => {
 
 // Loading fallback for code-split routes
 const PageLoader: React.FC = () => (
-  <div className="min-h-screen flex items-center justify-center bg-[#F8FDFB]">
-    <div className="w-10 h-10 rounded-full border-3 border-emerald-500 border-t-transparent animate-spin" />
+  <div className="min-h-screen flex items-center justify-center bg-[#F8FDFB] dark:bg-[#070F0D] transition-colors duration-300">
+    <div className="relative flex items-center justify-center">
+      <div className="w-12 h-12 rounded-full border-2 border-emerald-500/30 border-t-emerald-500 animate-spin" />
+      <div className="absolute w-6 h-6 rounded-full border-2 border-teal-400/40 border-t-teal-400 animate-spin animate-reverse" />
+    </div>
   </div>
 );
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <ScrollToAnchor />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/terms"
-          element={
-            <Suspense fallback={<PageLoader />}>
-              <TermsPage />
-            </Suspense>
-          }
-        />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <ScrollToAnchor />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/terms"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <TermsPage />
+              </Suspense>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 
