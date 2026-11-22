@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
           className="text-[11vw] font-black uppercase tracking-widest text-emerald-950/60 dark:text-emerald-900/30 whitespace-nowrap font-display"
           style={{ userSelect: 'none' }}
         >
-          KSHIRSA
+          {/* KSHIRSA */}
         </span>
       </div>
 
